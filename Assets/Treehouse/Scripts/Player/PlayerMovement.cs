@@ -4,11 +4,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] private float movementSpeed = 30f;
     private Rigidbody rb;
     public PlayerInput PlayerControls;
-
     private InputAction move;
-
     private Vector2 moveDirection;
     
 
@@ -40,6 +39,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.linearVelocity = new Vector3(moveDirection.x * 30, rb.linearVelocity.y, moveDirection.y * 30);
+        rb.linearVelocity = new Vector3(moveDirection.x * movementSpeed, rb.linearVelocity.y, moveDirection.y * movementSpeed);
     }
 }
