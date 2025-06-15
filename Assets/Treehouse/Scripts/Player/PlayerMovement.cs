@@ -5,8 +5,14 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] private bool testingMobile = false;
     [SerializeField] private float movementSpeed = 30f;
     [SerializeField] private float lookSpeed = 30f;
+
+    [SerializeField] private Joystick movementJoystick;
+    [SerializeField] private Joystick lookJoystick;
+    [SerializeField] private GameObject mobileUI;
+
     private Camera playerCamera;
     private Rigidbody rb;
     public PlayerInput PlayerControls;
@@ -41,15 +47,30 @@ public class PlayerMovement : MonoBehaviour
         playerCamera = Camera.main;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        if (testingMobile)
+        {
+            //enable UI
+            mobileUI.SetActive(true);
+        }
     }
 
     private void Update()
     {
-        moveDirection = move.ReadValue<Vector2>();
-        moveDirection.Normalize();
-        lookDirection = look.ReadValue<Vector2>();
+        if (testingMobile)
+        {
+            moveDirection = new Vector2(movementJoystick.Horizontal, movementJoystick.Vertical);
+            lookDirection = new Vector2(lookJoystick.Horizontal, lookJoystick.Vertical);
 
-        Debug.Log("Look Direction: " + lookDirection);
+        }
+        else
+        {
+            moveDirection = move.ReadValue<Vector2>();
+            lookDirection = look.ReadValue<Vector2>();
+
+        }
+        moveDirection.Normalize();
+
         transform.Rotate(Vector3.up * lookDirection.x * Time.deltaTime * lookSpeed);
         playerCamera.transform.Rotate(Vector3.left * lookDirection.y * Time.deltaTime * lookSpeed);
 
