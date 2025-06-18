@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices.WindowsRuntime;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -20,6 +21,9 @@ public class PlayerMovement : MonoBehaviour
     private InputAction look;
     private Vector2 moveDirection;
     private Vector2 lookDirection;
+    private float verticalRotation = 0f;
+    float minVerticalLookAngle = -70f;
+    float maxVerticalLookAngle = 70f;
     
 
     private void Awake()
@@ -72,8 +76,13 @@ public class PlayerMovement : MonoBehaviour
         moveDirection.Normalize();
 
         transform.Rotate(Vector3.up * lookDirection.x * Time.deltaTime * lookSpeed);
-        playerCamera.transform.Rotate(Vector3.left * lookDirection.y * Time.deltaTime * lookSpeed);
 
+        
+
+        verticalRotation -= lookDirection.y * Time.deltaTime * lookSpeed;
+        verticalRotation = Mathf.Clamp(verticalRotation, minVerticalLookAngle, maxVerticalLookAngle);
+
+        playerCamera.transform.localEulerAngles = new Vector3(verticalRotation, 0f, 0f);
     }
 
     private void FixedUpdate()
