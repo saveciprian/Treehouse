@@ -16,11 +16,16 @@ public class PlayerMovement : MonoBehaviour
 
     private Camera playerCamera;
     private Rigidbody rb;
+
+    //INPUT
     public PlayerInput PlayerControls;
     private InputAction move;
     private InputAction look;
+    private InputAction shoot;
     private Vector2 moveDirection;
     private Vector2 lookDirection;
+    private bool isShooting;
+
     private float verticalRotation = 0f;
     float minVerticalLookAngle = -70f;
     float maxVerticalLookAngle = 70f;
@@ -35,14 +40,22 @@ public class PlayerMovement : MonoBehaviour
     {
         move = PlayerControls.Player.Move;
         look = PlayerControls.Player.Look;
+        shoot = PlayerControls.Player.Fire;
         move.Enable();
         look.Enable();
+
+        //clicking and tapping on screen
+        shoot.performed += OnShootPerformed;
+        shoot.Enable();
     }
 
     private void OnDisable()
     {
         move.Disable();
         look.Enable();
+
+        shoot.performed -= OnShootPerformed;
+        shoot.Disable();
     }
 
     private void Start()
@@ -57,6 +70,18 @@ public class PlayerMovement : MonoBehaviour
             //enable UI
             mobileUI.SetActive(true);
         }
+    }
+
+    private void OnShootPerformed(InputAction.CallbackContext context)
+    {
+        Debug.Log("Click!");
+
+        /*
+            will need to see if tapping on the joysticks is opaque, otherwise need to also block interaction in that case
+            how would it work with dynamic joysticks? would be interesting to only allowing tap to select in a specific area
+            or, alternatively could just do it so that the player constantly scans for things that overlap the targeting reticle, and on mobile you have an "interact" button that gets enabled... I think that would be the cleanest solution
+            this also means that the clicking input should just enable the behaviour, but the scanning would happen in the update loop
+        */
     }
 
     private void Update()
@@ -76,8 +101,6 @@ public class PlayerMovement : MonoBehaviour
         moveDirection.Normalize();
 
         transform.Rotate(Vector3.up * lookDirection.x * Time.deltaTime * lookSpeed);
-
-        
 
         verticalRotation -= lookDirection.y * Time.deltaTime * lookSpeed;
         verticalRotation = Mathf.Clamp(verticalRotation, minVerticalLookAngle, maxVerticalLookAngle);
