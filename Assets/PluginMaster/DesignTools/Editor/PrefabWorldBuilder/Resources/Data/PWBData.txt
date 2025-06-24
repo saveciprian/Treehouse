@@ -1,6 +1,6 @@
 {
     "_version": "4.7",
-    "_rootDirectory": "",
+    "_rootDirectory": "Assets/PluginMaster/DesignTools/Editor/PrefabWorldBuilder",
     "_autoSavePeriodMinutes": 1,
     "_undoPalette": true,
     "_controlPointSize": 2,
