@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Cinemachine;
 
 public class PlayerInteraction : MonoBehaviour
 {
@@ -7,7 +8,8 @@ public class PlayerInteraction : MonoBehaviour
     private InputAction shoot;
     public PlayerInput PlayerControls;
     private Ray ray;
-    private Camera playerCamera;
+    [SerializeField] private CinemachineCamera playerCamera;
+    [SerializeField] private float interactionDistance = 10f;
     private IInteractable _interactableObject;
 
 
@@ -33,24 +35,29 @@ public class PlayerInteraction : MonoBehaviour
 
     void Start()
     {
-        playerCamera = Camera.main;
+
     }
 
     void Update()
     {
-        if (_interactableObject != null) _interactableObject.Outline();
+        //Need to replace all playerCamera.IsLive with a different system. Maybe observer on the actual virtual camera?
+        if (_interactableObject != null && playerCamera.IsLive) _interactableObject.Outline();
     }
 
     void FixedUpdate()
     {
         RaycastHit _hit;
 
-        Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward);
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out _hit))
+
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out _hit, interactionDistance) && playerCamera.IsLive)
         {
             _interactableObject = _hit.collider.GetComponent<IInteractable>();
         }
-        
+        else
+        {
+            _interactableObject = null;
+        }
+
 
     }
 

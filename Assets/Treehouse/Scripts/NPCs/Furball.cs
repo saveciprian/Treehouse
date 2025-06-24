@@ -1,32 +1,58 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using Unity.Cinemachine;
+using UnityEngine.InputSystem;
 
-public class Furball : MonoBehaviour, IInteractable
+public class Furball : Character
 {
-    public Material outlineMat;
+    [SerializeField] CinemachineCamera interactCam;
 
-    private MeshRenderer mr;
+    private PlayerInput PlayerControls;
+    private InputAction esc;
 
-    void Start()
+    private void OnEnable()
     {
-        mr = gameObject.GetComponent<MeshRenderer>();
-        outlineMat = mr.materials[1];
+        esc = PlayerControls.Player.Escape;
+        esc.performed += OnEscPerformed;
+        esc.Enable();
     }
 
-    void Update()
+    private void OnDisable()
     {
-        outlineMat.SetFloat("_OutlineThickness", 0f);
+        esc.performed -= OnEscPerformed;
+        esc.Disable();
     }
 
-    void IInteractable.Interact()
+    private void OnEscPerformed(InputAction.CallbackContext context)
     {
-        //whatever interaction add here
-
-
+        StopInteraction();
     }
 
-    void IInteractable.Outline()
+    void Awake()
     {
-        outlineMat.SetFloat("_OutlineThickness", 0.03f);
+        PlayerControls = new PlayerInput();
     }
 
+    public override void Interact()
+    {
+        base.Interact();
+
+        StartInteraction();
+    }
+
+    private void StartInteraction()
+    {
+        if (!interactCam.IsLive)
+        {
+            interactCam.Priority = 11;
+        }
+    }
+
+    private void StopInteraction()
+    {
+        if (interactCam.IsLive)
+        {
+            interactCam.Priority = 0;
+        }
+    }
 }
