@@ -79,6 +79,6 @@ Material:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _FoamColor: {r: 0.8962264, g: 0.7051899, b: 0.49461553, a: 1}
     - _FresnelColor: {r: 0.40784314, g: 0.81074506, b: 0.972549, a: 1}
-    - _ShallowColor: {r: 0.20392156, g: 0.7921569, b: 0.7369924, a: 1}
+    - _ShallowColor: {r: 0, g: 1, b: 0.90666676, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
