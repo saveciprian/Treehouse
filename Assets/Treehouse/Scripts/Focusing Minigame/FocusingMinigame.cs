@@ -8,31 +8,20 @@ public class FocusingMinigame : MonoBehaviour, IMinigame
 {
     public Volume volume;
 
-    public PlayerInput PlayerControls;
-    private InputAction move;
-    private Vector2 moveDirection;
     DepthOfField dof;
     [SerializeField] private float focusingSpeed = 10f;
 
-    private float maxFocalLength = 220f;
+    [SerializeField] private float maxFocalLength = 220f;
     private float transitionTime = 300f;
     private float transitionBackTime = 100f;
     private float step = 0.5f;
     private float stepTime = 0.001f;
     private bool enabled = true;
 
-    void Awake()
-    {
-        PlayerControls = new PlayerInput();
-    }
-
     void OnEnable()
     {
-        move = PlayerControls.Player.Move;
-        move.Enable();
         enabled = true;
 
-        Debug.Log("Hello there!");
         if (volume != null && volume.profile.TryGet<DepthOfField>(out dof))
         {
             dof.mode.value = DepthOfFieldMode.Bokeh; // Or .Gaussian, .Off, etc.
@@ -41,7 +30,7 @@ public class FocusingMinigame : MonoBehaviour, IMinigame
 
     void OnDisable()
     {
-        move.Disable();
+        enabled = false;
     }
 
     void Start()
@@ -51,8 +40,6 @@ public class FocusingMinigame : MonoBehaviour, IMinigame
 
     void Update()
     {
-        moveDirection = move.ReadValue<Vector2>();
-
         if (enabled && dof.focalLength.value < maxFocalLength)
         {
             StopAllCoroutines();
@@ -64,7 +51,8 @@ public class FocusingMinigame : MonoBehaviour, IMinigame
             StartCoroutine(removeDefocus());
         }
 
-        dof.focusDistance.value += moveDirection.y * focusingSpeed * Time.deltaTime;
+        if (!enabled) return;
+        dof.focusDistance.value += InputControls.Instance.moveDirection.y * focusingSpeed * Time.deltaTime;
     }
 
     void calculateTransitionStepTime(float time)
