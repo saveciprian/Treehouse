@@ -1,36 +1,14 @@
 using Unity.VisualScripting;
 using UnityEngine;
-using Unity.Cinemachine;
-using UnityEngine.InputSystem;
 
 public class Furball : Character
 {
-    [SerializeField] CinemachineCamera interactCam;
+    
+    private IMinigame minigame;
 
-    private PlayerInput PlayerControls;
-    private InputAction esc;
-
-    private void OnEnable()
+    void Start()
     {
-        esc = PlayerControls.Player.Escape;
-        esc.performed += OnEscPerformed;
-        esc.Enable();
-    }
-
-    private void OnDisable()
-    {
-        esc.performed -= OnEscPerformed;
-        esc.Disable();
-    }
-
-    private void OnEscPerformed(InputAction.CallbackContext context)
-    {
-        StopInteraction();
-    }
-
-    void Awake()
-    {
-        PlayerControls = new PlayerInput();
+        minigame = gameObject.GetComponent<IMinigame>();
     }
 
     public override void Interact()
@@ -42,17 +20,18 @@ public class Furball : Character
 
     private void StartInteraction()
     {
-        if (!interactCam.IsLive)
+        if (minigame != null)
         {
-            interactCam.Priority = 11;
-        }
+            ((MonoBehaviour)minigame).enabled = true;
+            minigame.Enable();
+        }    
     }
 
-    private void StopInteraction()
+    public override void StopInteraction()
     {
-        if (interactCam.IsLive)
-        {
-            interactCam.Priority = 0;
-        }
+        base.StopInteraction();
+
+        if (minigame != null) minigame.Disable();
+
     }
 }
