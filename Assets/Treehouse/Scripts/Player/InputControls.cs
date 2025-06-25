@@ -8,9 +8,14 @@ public class InputControls : MonoBehaviour
     public PlayerInput PlayerControls;
     private InputAction move;
     private InputAction look;
+    private InputAction esc;
 
     public Vector2 moveDirection { get; private set; }
     public Vector2 lookDirection { get; private set; }
+
+    public delegate void EscapePressed();
+    public static EscapePressed EscapeKey;
+
 
     private void Awake()
     {
@@ -34,18 +39,23 @@ public class InputControls : MonoBehaviour
         move.Enable();
         look.Enable();
 
-
+        esc = PlayerControls.Player.Escape;
+        esc.performed += OnEscPerformed;
+        esc.Enable();
     }
 
     private void OnDisable()
     {
         move.Disable();
         look.Enable();
+
+        esc.performed -= OnEscPerformed;
+        esc.Disable();
     }
 
-    void Start()
+    private void OnEscPerformed(InputAction.CallbackContext context)
     {
-        
+        EscapeKey?.Invoke();
     }
 
 
@@ -56,5 +66,8 @@ public class InputControls : MonoBehaviour
 
         lookDirection = look.ReadValue<Vector2>();
         // lookDirection.Normalize();
+
+
     }
+
 }

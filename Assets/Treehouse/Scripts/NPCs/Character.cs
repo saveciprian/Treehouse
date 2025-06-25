@@ -8,36 +8,28 @@ public class Character : MonoBehaviour, IInteractable
     private MeshRenderer mr;
     [SerializeField] CinemachineCamera interactCam;
 
-    private PlayerInput PlayerControls;
-    private InputAction esc;
-
-    private void OnEnable()
-    {
-        esc = PlayerControls.Player.Escape;
-        esc.performed += OnEscPerformed;
-        esc.Enable();
-    }
-
-    private void OnDisable()
-    {
-        esc.performed -= OnEscPerformed;
-        esc.Disable();
-    }
-
-    private void OnEscPerformed(InputAction.CallbackContext context)
-    {
-        StopInteraction();
-    }
 
     void Awake()
     {
-        PlayerControls = new PlayerInput();
+        
     }
 
     void Start()
     {
         mr = gameObject.GetComponent<MeshRenderer>();
         outlineMat = mr.materials[1];
+
+        
+    }
+
+    void OnEnable()
+    {
+        InputControls.EscapeKey += StopInteraction; 
+    }
+
+    void OnDisable()
+    {
+        InputControls.EscapeKey -= StopInteraction; 
     }
 
     void Update()
