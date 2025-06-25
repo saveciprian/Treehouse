@@ -15,8 +15,9 @@ public class FocusingMinigame : MonoBehaviour, IMinigame
     [SerializeField] private float focusingSpeed = 10f;
 
     private float maxFocalLength = 220f;
-    private int transitionTime = 300;
-    private float step = 0.1f;
+    private float transitionTime = 300f;
+    private float transitionBackTime = 100f;
+    private float step = 0.5f;
     private float stepTime = 0.001f;
     private bool enabled = true;
 
@@ -45,20 +46,28 @@ public class FocusingMinigame : MonoBehaviour, IMinigame
 
     void Start()
     {
-        calculateTransitionStepTime();
+        
     }
 
     void Update()
     {
         moveDirection = move.ReadValue<Vector2>();
 
-        if (enabled && dof.focalLength.value < maxFocalLength) StartCoroutine(initializeDefocus());
-        if (!enabled && dof.focalLength.value > 1) StartCoroutine(removeDefocus());
+        if (enabled && dof.focalLength.value < maxFocalLength)
+        {
+            StopAllCoroutines();
+            StartCoroutine(initializeDefocus());
+        }
+        if (!enabled && dof.focalLength.value > 1)
+        {
+            StopAllCoroutines();
+            StartCoroutine(removeDefocus());
+        }
 
         dof.focusDistance.value += moveDirection.y * focusingSpeed * Time.deltaTime;
     }
 
-    void calculateTransitionStepTime()
+    void calculateTransitionStepTime(float time)
     {
         float totalSteps = (maxFocalLength - 1f) / step; // 1f is the starting focal length
         stepTime = transitionTime / 1000f / totalSteps; // stepTime in seconds
@@ -66,29 +75,60 @@ public class FocusingMinigame : MonoBehaviour, IMinigame
 
     IEnumerator initializeDefocus()
     {
-        yield return new WaitForSeconds(stepTime);
-        dof.focalLength.value += step;
-        if (dof.focalLength.value > maxFocalLength) dof.focalLength.value = maxFocalLength;
+        // yield return new WaitForSeconds(stepTime);
+        // dof.focalLength.value += step;
+        // if (dof.focalLength.value > maxFocalLength) dof.focalLength.value = maxFocalLength;
+
+        float start = dof.focalLength.value;
+        float end = maxFocalLength;
+        float duration = transitionTime / 1000f; // ms to seconds
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            yield return new WaitForEndOfFrame();
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            dof.focalLength.value = Mathf.Lerp(start, end, t);
+        }
+        dof.focalLength.value = end;
     }
-    
+
     IEnumerator removeDefocus()
     {
-        yield return new WaitForSeconds(stepTime);
-        dof.focalLength.value -= step;
-        if (dof.focalLength.value < 1)
+        // yield return new WaitForSeconds(stepTime);
+        // dof.focalLength.value -= step;
+        // if (dof.focalLength.value < 1)
+        // {
+        //     dof.focalLength.value = 1;
+        //     this.enabled = false;
+        // }    
+        
+        float start = dof.focalLength.value;
+        float end = 1f;
+        float duration = transitionBackTime / 1000f; // ms to seconds
+        float elapsed = 0f;
+
+        while (elapsed < duration)
         {
-            dof.focalLength.value = 1;
-            this.enabled = false;
-        }    
+            yield return new WaitForEndOfFrame();
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            dof.focalLength.value = Mathf.Lerp(start, end, t);
+        }
+        dof.focalLength.value = end;
+        this.enabled = false;
     }
 
     public void Enable()
     {
+        calculateTransitionStepTime(transitionTime);
         enabled = true;
     }
 
     public void Disable()
     {
+        calculateTransitionStepTime(transitionBackTime);
         enabled = false;
     }
 }
