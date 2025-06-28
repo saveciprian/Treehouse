@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal; // Make sure to include this for DepthOfField
-using UnityEngine.InputSystem;
 using System.Collections;
 
 public class FocusingMinigame : MonoBehaviour, IMinigame
@@ -16,11 +15,11 @@ public class FocusingMinigame : MonoBehaviour, IMinigame
     private float transitionBackTime = 100f;
     private float step = 0.5f;
     private float stepTime = 0.001f;
-    private bool enabled = true;
+    private bool minigameEnabled = true;
 
     void OnEnable()
     {
-        enabled = true;
+        minigameEnabled = true;
 
         if (volume != null && volume.profile.TryGet<DepthOfField>(out dof))
         {
@@ -30,7 +29,7 @@ public class FocusingMinigame : MonoBehaviour, IMinigame
 
     void OnDisable()
     {
-        enabled = false;
+        minigameEnabled = false;
     }
 
     void Start()
@@ -40,18 +39,18 @@ public class FocusingMinigame : MonoBehaviour, IMinigame
 
     void Update()
     {
-        if (enabled && dof.focalLength.value < maxFocalLength)
+        if (minigameEnabled && dof.focalLength.value < maxFocalLength)
         {
             StopAllCoroutines();
             StartCoroutine(initializeDefocus());
         }
-        if (!enabled && dof.focalLength.value > 1)
+        if (!minigameEnabled && dof.focalLength.value > 1)
         {
             StopAllCoroutines();
             StartCoroutine(removeDefocus());
         }
 
-        if (!enabled) return;
+        if (!minigameEnabled) return;
         dof.focusDistance.value += InputControls.Instance.moveDirection.y * focusingSpeed * Time.deltaTime;
     }
 
@@ -63,10 +62,6 @@ public class FocusingMinigame : MonoBehaviour, IMinigame
 
     IEnumerator initializeDefocus()
     {
-        // yield return new WaitForSeconds(stepTime);
-        // dof.focalLength.value += step;
-        // if (dof.focalLength.value > maxFocalLength) dof.focalLength.value = maxFocalLength;
-
         float start = dof.focalLength.value;
         float end = maxFocalLength;
         float duration = transitionTime / 1000f; // ms to seconds
@@ -83,15 +78,7 @@ public class FocusingMinigame : MonoBehaviour, IMinigame
     }
 
     IEnumerator removeDefocus()
-    {
-        // yield return new WaitForSeconds(stepTime);
-        // dof.focalLength.value -= step;
-        // if (dof.focalLength.value < 1)
-        // {
-        //     dof.focalLength.value = 1;
-        //     this.enabled = false;
-        // }    
-        
+    {   
         float start = dof.focalLength.value;
         float end = 1f;
         float duration = transitionBackTime / 1000f; // ms to seconds
@@ -105,18 +92,18 @@ public class FocusingMinigame : MonoBehaviour, IMinigame
             dof.focalLength.value = Mathf.Lerp(start, end, t);
         }
         dof.focalLength.value = end;
-        this.enabled = false;
+        this.minigameEnabled = false;
     }
 
     public void Enable()
     {
         calculateTransitionStepTime(transitionTime);
-        enabled = true;
+        minigameEnabled = true;
     }
 
     public void Disable()
     {
         calculateTransitionStepTime(transitionBackTime);
-        enabled = false;
+        minigameEnabled = false;
     }
 }

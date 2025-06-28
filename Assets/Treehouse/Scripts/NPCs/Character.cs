@@ -8,6 +8,9 @@ public class Character : MonoBehaviour, IInteractable
     private MeshRenderer mr;
     [SerializeField] CinemachineCamera interactCam;
 
+    [SerializeField] CinemachineCamera[] interactCameras;
+    private int activeIndex = 0;
+
 
     void Awake()
     {
@@ -58,6 +61,32 @@ public class Character : MonoBehaviour, IInteractable
         {
             interactCam.Priority = 0;
         }
+    }
+
+    private void setCameraAsActive(int index)
+    {
+        interactCameras[index].Priority = 11;
+    }
+
+    private void unsetCameraAsActive(int index)
+    {
+        interactCameras[index].Priority = 0;
+    }
+
+    public void setNextCamera()
+    {
+        unsetCameraAsActive(activeIndex);
+        if (!(activeIndex + 1 >= interactCameras.Length)) activeIndex++;
+        setCameraAsActive(activeIndex);
+    }
+
+    public void resetToPlayerCam()
+    {
+        foreach (var camera in interactCameras)
+        {
+            camera.Priority = 0;
+        }
+        // unsetCameraAsActive(activeIndex);
     }
 
     void IInteractable.Outline()

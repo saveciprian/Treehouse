@@ -602,7 +602,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""a60a2ed2-fdc5-470d-80c4-451cc7278828"",
-                    ""path"": ""<Keyboard>/escape"",
+                    ""path"": ""<Keyboard>/t"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
