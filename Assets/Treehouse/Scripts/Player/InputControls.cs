@@ -9,10 +9,23 @@ public class InputControls : MonoBehaviour
     private InputAction move;
     private InputAction look;
     private InputAction esc;
+    [SerializeField] private bool testingMobile = false;
+
+    Vector2 mousePos;
+    Vector2 touchPos;
 
     public Vector2 moveDirection { get; private set; }
     public Vector2 lookDirection { get; private set; }
+    public enum controlMode
+    {
+        Freeroam,
+        Minigame
+    }
 
+    public controlMode mode = controlMode.Freeroam;
+
+    public delegate void ControlModeChanged();
+    public static ControlModeChanged ControlSchemeChanged;
     public delegate void EscapePressed();
     public static EscapePressed EscapeKey;
 
@@ -58,6 +71,18 @@ public class InputControls : MonoBehaviour
         EscapeKey?.Invoke();
     }
 
+    public void ControlToFreeroam()
+    {
+        mode = controlMode.Freeroam;
+        ControlSchemeChanged.Invoke();
+    }
+
+    public void ControlToMinigame()
+    {
+        mode = controlMode.Minigame;
+        ControlSchemeChanged.Invoke();
+    }
+
 
     void Update()
     {
@@ -67,7 +92,23 @@ public class InputControls : MonoBehaviour
         lookDirection = look.ReadValue<Vector2>();
         // lookDirection.Normalize();
 
+        if (testingMobile)
+        {
+            if (Touchscreen.current != null && Touchscreen.current.touches.Count > 0)
+            {
+                touchPos = Touchscreen.current.touches[0].position.ReadValue();
+            }
+        }
+        else
+        {
+            mousePos = Mouse.current.position.ReadValue();
+            // Debug.Log(mousePos);
+        }
+    }
 
+    public Vector2 getPointerPos()
+    {
+        return testingMobile ? touchPos : mousePos;
     }
 
 }

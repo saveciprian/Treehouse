@@ -29,8 +29,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody>();
         // playerCamera = gameObject.;
-        // Cursor.lockState = CursorLockMode.Locked;
-        // Cursor.visible = false;
+        HideCursor();
 
         input = InputControls.Instance;
 
@@ -39,8 +38,27 @@ public class PlayerMovement : MonoBehaviour
             //enable UI
             mobileUI.SetActive(true);
         }
+
+        InputControls.ControlSchemeChanged += UpdateControl;
     }
 
+    private void UpdateControl()
+    {
+        if (input.mode == InputControls.controlMode.Freeroam) HideCursor();
+        else ShowCursor();
+    }
+
+    private void HideCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    private void ShowCursor()
+    {
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+    }
 
     private void Update()
     {

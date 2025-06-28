@@ -10,12 +10,16 @@ public class FocusingMinigame : MonoBehaviour, IMinigame
     DepthOfField dof;
     [SerializeField] private float focusingSpeed = 10f;
 
-    [SerializeField] private float maxFocalLength = 220f;
+    [SerializeField] private float maxFocalLength = 100f;
     private float transitionTime = 300f;
     private float transitionBackTime = 100f;
     private float step = 0.5f;
     private float stepTime = 0.001f;
     private bool minigameEnabled = true;
+    private float focusDistance;
+
+    [SerializeField] private float minFocus = 0f;
+    [SerializeField] private float maxFocus = 100f;
 
     void OnEnable()
     {
@@ -50,8 +54,23 @@ public class FocusingMinigame : MonoBehaviour, IMinigame
             StartCoroutine(removeDefocus());
         }
 
+        // dof.focusDistance.value += InputControls.Instance.moveDirection.y * focusingSpeed * Time.deltaTime;
+    }
+
+    public void ModifyFocusDistance(float dt)
+    {
         if (!minigameEnabled) return;
-        dof.focusDistance.value += InputControls.Instance.moveDirection.y * focusingSpeed * Time.deltaTime;
+        focusDistance -= dt * focusingSpeed * Time.deltaTime;
+        focusDistance = clamp(focusDistance, minFocus, maxFocus);
+
+        dof.focusDistance.value = focusDistance;
+    }
+
+    private float clamp(float value, float min, float max)
+    {
+        if (value < min) return min;
+        else if (value > max) return max;
+        else return value;
     }
 
     void calculateTransitionStepTime(float time)
@@ -99,6 +118,7 @@ public class FocusingMinigame : MonoBehaviour, IMinigame
     {
         calculateTransitionStepTime(transitionTime);
         minigameEnabled = true;
+        focusDistance = dof.focusDistance.value;
     }
 
     public void Disable()

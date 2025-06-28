@@ -49,10 +49,13 @@ public class Character : MonoBehaviour, IInteractable
 
     private void StartInteraction()
     {
-        if (!interactCam.IsLive)
-        {
-            interactCam.Priority = 11;
-        }
+        // if (!interactCam.IsLive)
+        // {
+        //     interactCam.Priority = 11;
+        // }
+
+        setCameraAsActive(0);
+        InputControls.Instance.ControlToMinigame();
     }
 
     public virtual void StopInteraction()
@@ -61,6 +64,8 @@ public class Character : MonoBehaviour, IInteractable
         {
             interactCam.Priority = 0;
         }
+
+        InputControls.Instance.ControlToFreeroam();
     }
 
     private void setCameraAsActive(int index)
@@ -86,7 +91,8 @@ public class Character : MonoBehaviour, IInteractable
         {
             camera.Priority = 0;
         }
-        // unsetCameraAsActive(activeIndex);
+
+        InputControls.Instance.ControlToFreeroam();
     }
 
     void IInteractable.Outline()
