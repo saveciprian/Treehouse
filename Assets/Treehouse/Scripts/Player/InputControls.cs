@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class InputControls : MonoBehaviour
 {
@@ -28,6 +29,11 @@ public class InputControls : MonoBehaviour
     public static ControlModeChanged ControlSchemeChanged;
     public delegate void EscapePressed();
     public static EscapePressed EscapeKey;
+
+    public delegate void PointerDown();
+    public static PointerDown pointerDown;
+    public delegate void PointerUp();
+    public static PointerUp pointerUp;
 
 
     private void Awake()
@@ -74,13 +80,13 @@ public class InputControls : MonoBehaviour
     public void ControlToFreeroam()
     {
         mode = controlMode.Freeroam;
-        ControlSchemeChanged.Invoke();
+        ControlSchemeChanged?.Invoke();
     }
 
     public void ControlToMinigame()
     {
         mode = controlMode.Minigame;
-        ControlSchemeChanged.Invoke();
+        ControlSchemeChanged?.Invoke();
     }
 
 
@@ -96,11 +102,21 @@ public class InputControls : MonoBehaviour
         {
             if (Touchscreen.current != null && Touchscreen.current.touches.Count > 0)
             {
+                pointerDown?.Invoke();
+
+                var touch = Touchscreen.current.touches[0];
+
+                if (touch.press.wasPressedThisFrame) pointerDown?.Invoke();
+                if (touch.press.wasReleasedThisFrame) pointerUp?.Invoke();
+
                 touchPos = Touchscreen.current.touches[0].position.ReadValue();
             }
         }
         else
         {
+            if(Mouse.current.leftButton.wasPressedThisFrame) pointerDown?.Invoke();
+            if(Mouse.current.leftButton.wasReleasedThisFrame) pointerUp?.Invoke();
+
             mousePos = Mouse.current.position.ReadValue();
             // Debug.Log(mousePos);
         }
@@ -110,5 +126,4 @@ public class InputControls : MonoBehaviour
     {
         return testingMobile ? touchPos : mousePos;
     }
-
 }

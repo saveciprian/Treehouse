@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using System;
 using System.Drawing;
 
-public class FocusWheel : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class FocusWheel : MonoBehaviour
 {
     private bool rotatingDial = false;
     [SerializeField] FocusingMinigame minigame;
@@ -21,6 +21,18 @@ public class FocusWheel : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     void Start()
     {
         rect = gameObject.GetComponent<RectTransform>();
+    }
+
+    void OnEnable()
+    {
+        InputControls.pointerDown += PointerDown;
+        InputControls.pointerUp += PointerUp;
+    }
+
+    void OnDisable()
+    {
+        InputControls.pointerDown -= PointerDown;
+        InputControls.pointerUp -= PointerUp;
     }
 
     void Update()
@@ -51,14 +63,13 @@ public class FocusWheel : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void PointerDown()
     {
-        rotatingDial = true;
         currentPos = InputControls.Instance.getPointerPos();
-
+        if((currentPos - (Vector2)transform.position).magnitude < rect.rect.width/2) rotatingDial = true; 
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    public void PointerUp()
     {
         rotatingDial = false;
         previousPos = Vector2.zero;

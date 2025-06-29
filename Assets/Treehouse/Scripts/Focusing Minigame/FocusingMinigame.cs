@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal; // Make sure to include this for DepthOfField
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class FocusingMinigame : MonoBehaviour, IMinigame
 {
@@ -20,25 +21,46 @@ public class FocusingMinigame : MonoBehaviour, IMinigame
 
     [SerializeField] private float minFocus = 0f;
     [SerializeField] private float maxFocus = 100f;
+    private Camera playCam;
+    [SerializeField] private float hitFuzz = 1f;
 
     void OnEnable()
     {
+        
         minigameEnabled = true;
 
         if (volume != null && volume.profile.TryGet<DepthOfField>(out dof))
         {
             dof.mode.value = DepthOfFieldMode.Bokeh; // Or .Gaussian, .Off, etc.
         }
+
+        InputControls.pointerDown += SelectObject;
     }
 
     void OnDisable()
     {
         minigameEnabled = false;
+        InputControls.pointerDown -= SelectObject;
+    }
+
+    public void SelectObject()
+    {
+        playCam = Camera.main;
+        Vector3 screenPos = InputControls.Instance.getPointerPos();
+        Ray ray = playCam.ScreenPointToRay(screenPos);
+        RaycastHit _hit;
+
+        if (Physics.Raycast(ray, out _hit))
+        {
+            // Debug.Log("Hit: " + _hit.collider.name);
+
+            if (focusDistance - hitFuzz < _hit.distance && _hit.distance < focusDistance + hitFuzz) Debug.Log("object hit: " + _hit.collider.name);
+        }
     }
 
     void Start()
     {
-        
+     
     }
 
     void Update()
