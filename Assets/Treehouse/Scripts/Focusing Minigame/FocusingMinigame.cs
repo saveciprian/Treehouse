@@ -5,6 +5,7 @@ using System.Collections;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using Microsoft.Unity.VisualStudio.Editor;
+using Unity.VisualScripting;
 
 public class FocusingMinigame : MonoBehaviour, IMinigame
 {
@@ -27,13 +28,16 @@ public class FocusingMinigame : MonoBehaviour, IMinigame
     [SerializeField] private float hitFuzz = 1f;
 
     public List<GameObject> solutionObjects;
-    // public List<Image> solutionIndicators
+    private int foundObjects = 0;
+    private int totalObjects;
+    public List<ToggleButton> solutionIndicators;
 
     void OnEnable()
     {
         
         minigameEnabled = true;
         FocusingUI.SetActive(true);
+
 
         if (volume != null && volume.profile.TryGet<DepthOfField>(out dof))
         {
@@ -57,17 +61,30 @@ public class FocusingMinigame : MonoBehaviour, IMinigame
         Ray ray = playCam.ScreenPointToRay(screenPos);
         RaycastHit _hit;
 
+
         if (Physics.Raycast(ray, out _hit))
         {
             // Debug.Log("Hit: " + _hit.collider.name);
 
             if (focusDistance - hitFuzz < _hit.distance && _hit.distance < focusDistance + hitFuzz) Debug.Log("object hit: " + _hit.collider.name);
+
+            for (int i = 0; i < solutionObjects.Count; i++)
+            {
+                if (solutionObjects[i] == _hit.collider.gameObject)
+                {
+                    solutionIndicators[i].Toggle();
+                    solutionObjects[i].SetActive(false);
+                    foundObjects++;
+                }
+            }
+
+            if (foundObjects == totalObjects) Disable();
         }
     }
 
     void Start()
     {
-     
+        totalObjects = solutionObjects.Count;
     }
 
     void Update()
@@ -106,6 +123,13 @@ public class FocusingMinigame : MonoBehaviour, IMinigame
     {
         float totalSteps = (maxFocalLength - 1f) / step; // 1f is the starting focal length
         stepTime = transitionTime / 1000f / totalSteps; // stepTime in seconds
+    }
+
+    IEnumerator returnToFreeroam()
+    {
+        Debug.Log("returning to free roam...");
+        yield return new WaitForSeconds(2);
+        Disable();
     }
 
     IEnumerator initializeDefocus()
@@ -152,6 +176,8 @@ public class FocusingMinigame : MonoBehaviour, IMinigame
 
     public void Disable()
     {
+        Debug.Log("disable woo");
+        InputControls.Instance.ControlToFreeroam();
         calculateTransitionStepTime(transitionBackTime);
         minigameEnabled = false;
     }

@@ -27,12 +27,14 @@ public class Character : MonoBehaviour, IInteractable
 
     void OnEnable()
     {
-        InputControls.EscapeKey += StopInteraction; 
+        InputControls.EscapeKey += StopInteraction;
+        InputControls.ControlSchemeChanged += HandleControl;
     }
 
     void OnDisable()
     {
         InputControls.EscapeKey -= StopInteraction; 
+        InputControls.ControlSchemeChanged -= HandleControl;
     }
 
     void Update()
@@ -58,6 +60,7 @@ public class Character : MonoBehaviour, IInteractable
 
     public virtual void StopInteraction()
     {
+
         if (interactCam.IsLive)
         {
             interactCam.Priority = 0;
@@ -83,6 +86,11 @@ public class Character : MonoBehaviour, IInteractable
         setCameraAsActive(activeIndex);
     }
 
+    private void HandleControl()
+    {
+        if (InputControls.Instance.mode == InputControls.controlMode.Freeroam) resetToPlayerCam();
+    }
+
     public void resetToPlayerCam()
     {
         foreach (var camera in interactCameras)
@@ -90,7 +98,7 @@ public class Character : MonoBehaviour, IInteractable
             camera.Priority = 0;
         }
 
-        InputControls.Instance.ControlToFreeroam();
+        // InputControls.Instance.ControlToFreeroam();
     }
 
     void IInteractable.Outline()
