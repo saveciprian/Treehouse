@@ -288,6 +288,7 @@ GameObject:
   m_Component:
   - component: {fileID: 52339236}
   - component: {fileID: 52339235}
+  - component: {fileID: 52339237}
   m_Layer: 0
   m_Name: FurrballCam
   m_TagString: Untagged
@@ -353,6 +354,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1320427728}
   m_LocalEulerAnglesHint: {x: -2.318, y: 74.028, z: -8.043}
+--- !u!114 &52339237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52339234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NoiseProfile: {fileID: 11400000, guid: c3df0142c95ab43c781a180d833e7f91, type: 2}
+  PivotOffset: {x: 0, y: 0, z: 0}
+  AmplitudeGain: 0.3
+  FrequencyGain: 0.5
+  m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &99594362
 GameObject:
   m_ObjectHideFlags: 0
@@ -704,8 +722,8 @@ RectTransform:
   - {fileID: 694308958}
   m_Father: {fileID: 1218094427}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 500, y: 30}
   m_Pivot: {x: 0, y: 1}
@@ -1075,7 +1093,8 @@ MonoBehaviour:
   focusingSpeed: 2
   maxFocalLength: 100
   minFocus: 1.5
-  maxFocus: 10
+  maxFocus: 15
+  hitFuzz: 4
 --- !u!1 &587269348
 GameObject:
   m_ObjectHideFlags: 0
@@ -1959,6 +1978,7 @@ GameObject:
   m_Component:
   - component: {fileID: 931367926}
   - component: {fileID: 931367927}
+  - component: {fileID: 931367928}
   m_Layer: 0
   m_Name: MinigameCam
   m_TagString: Untagged
@@ -2024,6 +2044,23 @@ MonoBehaviour:
       BarrelClipping: 0.25
       Anamorphism: 0
   BlendHint: 0
+--- !u!114 &931367928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931367925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NoiseProfile: {fileID: 11400000, guid: c3df0142c95ab43c781a180d833e7f91, type: 2}
+  PivotOffset: {x: 0, y: 0, z: 0}
+  AmplitudeGain: 0.3
+  FrequencyGain: 0.5
+  m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &952410348
 GameObject:
   m_ObjectHideFlags: 0
@@ -2325,7 +2362,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1218094427
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2431,7 +2468,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1a9674b7c33a44d1a9a220bb0980f95c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5eda94a9dcf71e445ad17e3c065d1460, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2584,7 +2621,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1320427728}
   m_Layer: 0
-  m_Name: Character Group
+  m_Name: FocusingMechanic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3105,9 +3142,9 @@ RectTransform:
   - {fileID: 952410349}
   m_Father: {fileID: 1218094427}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: -35}
   m_SizeDelta: {x: 500, y: 30}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1702562015
@@ -3406,8 +3443,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1589230369}
   - {fileID: 795083658}
+  - {fileID: 1589230369}
   - {fileID: 1965253326}
   - {fileID: 1218094427}
   m_Father: {fileID: 0}
