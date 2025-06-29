@@ -29,7 +29,6 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody>();
         // playerCamera = gameObject.;
-        HideCursor();
 
         input = InputControls.Instance;
 
@@ -39,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
             mobileUI.SetActive(true);
         }
 
+        HideCursor();
         InputControls.ControlSchemeChanged += UpdateControl;
     }
 

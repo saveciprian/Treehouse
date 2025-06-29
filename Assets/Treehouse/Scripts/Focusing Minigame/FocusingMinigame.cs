@@ -9,8 +9,8 @@ public class FocusingMinigame : MonoBehaviour, IMinigame
     public Volume volume;
 
     DepthOfField dof;
+    [SerializeField] private GameObject FocusingUI;
     [SerializeField] private float focusingSpeed = 10f;
-
     [SerializeField] private float maxFocalLength = 100f;
     private float transitionTime = 300f;
     private float transitionBackTime = 100f;
@@ -28,6 +28,7 @@ public class FocusingMinigame : MonoBehaviour, IMinigame
     {
         
         minigameEnabled = true;
+        FocusingUI.SetActive(true);
 
         if (volume != null && volume.profile.TryGet<DepthOfField>(out dof))
         {
@@ -39,6 +40,7 @@ public class FocusingMinigame : MonoBehaviour, IMinigame
 
     void OnDisable()
     {
+        FocusingUI.SetActive(false);
         minigameEnabled = false;
         InputControls.pointerDown -= SelectObject;
     }

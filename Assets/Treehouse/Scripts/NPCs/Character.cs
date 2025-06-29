@@ -40,11 +40,9 @@ public class Character : MonoBehaviour, IInteractable
         outlineMat.SetFloat("_OutlineThickness", 0f);
     }
 
-    public virtual void Interact()
+    public virtual void Interact() //Player calls this function on interact
     {
-        //whatever interaction add here
         StartInteraction();
-
     }
 
     private void StartInteraction()

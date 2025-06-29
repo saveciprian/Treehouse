@@ -1,3 +1,4 @@
+using PixelCrushers.DialogueSystem;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -5,6 +6,7 @@ public class Furball : Character
 {
     
     private IMinigame minigame;
+    private DialogueSystemTrigger dialogueSystemTrigger;
 
     void Start()
     {
@@ -15,10 +17,14 @@ public class Furball : Character
     {
         base.Interact();
 
-        StartInteraction();
+        gameObject.GetComponent<DialogueSystemTrigger>().OnUse();
+
+        //Should start dialogue here, then the dialogue should start the minigame
+        // StartMinigame();
+
     }
 
-    private void StartInteraction()
+    private void StartMinigame()
     {
         if (minigame != null)
         {

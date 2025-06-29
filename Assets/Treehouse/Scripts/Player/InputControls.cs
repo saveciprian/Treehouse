@@ -89,6 +89,11 @@ public class InputControls : MonoBehaviour
         ControlSchemeChanged?.Invoke();
     }
 
+    void Start()
+    {
+        ControlToFreeroam();
+    }
+
 
     void Update()
     {
