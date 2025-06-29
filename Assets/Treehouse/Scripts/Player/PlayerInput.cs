@@ -113,7 +113,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""name"": ""Attack"",
                     ""type"": ""Button"",
                     ""id"": ""6c2ab1b8-8984-453a-af3d-a3c78ae1679a"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -122,7 +122,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""852140f2-7766-474d-8707-702459ba45f3"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
@@ -167,7 +167,25 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""name"": ""Sprint"",
                     ""type"": ""Button"",
                     ""id"": ""641cd816-40e6-41b4-8c3d-04687c349290"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""4e09ecaf-500e-43f3-8f17-b2dcd772dd59"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Escape"",
+                    ""type"": ""Button"",
+                    ""id"": ""1ce23f47-3324-4cc2-9979-da23bbda1fab"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -556,6 +574,39 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2ed47d1b-d112-4c99-9937-b31ce0f2b133"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse;Touch"",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""75ced7b9-cceb-467e-9fc4-11f177d84762"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a60a2ed2-fdc5-470d-80c4-451cc7278828"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Escape"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1152,6 +1203,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_Previous = m_Player.FindAction("Previous", throwIfNotFound: true);
         m_Player_Next = m_Player.FindAction("Next", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
+        m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
+        m_Player_Escape = m_Player.FindAction("Escape", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1254,6 +1307,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Previous;
     private readonly InputAction m_Player_Next;
     private readonly InputAction m_Player_Sprint;
+    private readonly InputAction m_Player_Fire;
+    private readonly InputAction m_Player_Escape;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1301,6 +1356,14 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Sprint".
         /// </summary>
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Fire".
+        /// </summary>
+        public InputAction @Fire => m_Wrapper.m_Player_Fire;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Escape".
+        /// </summary>
+        public InputAction @Escape => m_Wrapper.m_Player_Escape;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1354,6 +1417,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Sprint.started += instance.OnSprint;
             @Sprint.performed += instance.OnSprint;
             @Sprint.canceled += instance.OnSprint;
+            @Fire.started += instance.OnFire;
+            @Fire.performed += instance.OnFire;
+            @Fire.canceled += instance.OnFire;
+            @Escape.started += instance.OnEscape;
+            @Escape.performed += instance.OnEscape;
+            @Escape.canceled += instance.OnEscape;
         }
 
         /// <summary>
@@ -1392,6 +1461,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Sprint.started -= instance.OnSprint;
             @Sprint.performed -= instance.OnSprint;
             @Sprint.canceled -= instance.OnSprint;
+            @Fire.started -= instance.OnFire;
+            @Fire.performed -= instance.OnFire;
+            @Fire.canceled -= instance.OnFire;
+            @Escape.started -= instance.OnEscape;
+            @Escape.performed -= instance.OnEscape;
+            @Escape.canceled -= instance.OnEscape;
         }
 
         /// <summary>
@@ -1755,6 +1830,20 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSprint(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Fire" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFire(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Escape" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnEscape(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

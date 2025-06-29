@@ -1,8 +1,7 @@
-using System.Runtime.InteropServices.WindowsRuntime;
-using Unity.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using Unity.Cinemachine;
+
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -14,17 +13,21 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Joystick lookJoystick;
     [SerializeField] private GameObject mobileUI;
 
-    private Camera playerCamera;
+    [SerializeField] private CinemachineCamera playerCamera;
     private Rigidbody rb;
+
+    //INPUT
     public PlayerInput PlayerControls;
     private InputAction move;
     private InputAction look;
+
     private Vector2 moveDirection;
     private Vector2 lookDirection;
+
     private float verticalRotation = 0f;
     float minVerticalLookAngle = -70f;
     float maxVerticalLookAngle = 70f;
-    
+
 
     private void Awake()
     {
@@ -35,20 +38,25 @@ public class PlayerMovement : MonoBehaviour
     {
         move = PlayerControls.Player.Move;
         look = PlayerControls.Player.Look;
+
         move.Enable();
         look.Enable();
+
+
     }
 
     private void OnDisable()
     {
         move.Disable();
         look.Enable();
+
+
     }
 
     private void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
-        playerCamera = Camera.main;
+        // playerCamera = gameObject.;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
@@ -58,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
             mobileUI.SetActive(true);
         }
     }
+
 
     private void Update()
     {
@@ -75,19 +84,24 @@ public class PlayerMovement : MonoBehaviour
         }
         moveDirection.Normalize();
 
-        transform.Rotate(Vector3.up * lookDirection.x * Time.deltaTime * lookSpeed);
+        if (playerCamera.IsLive)
+        {
+            transform.Rotate(Vector3.up * lookDirection.x * Time.deltaTime * lookSpeed);
 
-        
+            verticalRotation -= lookDirection.y * Time.deltaTime * lookSpeed;
+            verticalRotation = Mathf.Clamp(verticalRotation, minVerticalLookAngle, maxVerticalLookAngle);
 
-        verticalRotation -= lookDirection.y * Time.deltaTime * lookSpeed;
-        verticalRotation = Mathf.Clamp(verticalRotation, minVerticalLookAngle, maxVerticalLookAngle);
-
-        playerCamera.transform.localEulerAngles = new Vector3(verticalRotation, 0f, 0f);
+            playerCamera.transform.localEulerAngles = new Vector3(verticalRotation, 0f, 0f);
+        }
     }
 
     private void FixedUpdate()
     {
-        rb.MovePosition(rb.position + transform.forward * movementSpeed * Time.deltaTime * moveDirection.y);
-        rb.MovePosition(rb.position + transform.right * movementSpeed * Time.deltaTime * moveDirection.x);
+        if (playerCamera.IsLive)
+        { 
+            rb.MovePosition(rb.position + transform.forward * movementSpeed * Time.deltaTime * moveDirection.y);
+            rb.MovePosition(rb.position + transform.right * movementSpeed * Time.deltaTime * moveDirection.x);
+        }
     }
+
 }
