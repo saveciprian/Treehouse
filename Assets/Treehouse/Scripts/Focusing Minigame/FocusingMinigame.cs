@@ -3,6 +3,8 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal; // Make sure to include this for DepthOfField
 using System.Collections;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
 
 public class FocusingMinigame : MonoBehaviour, IMinigame
 {
@@ -23,6 +25,9 @@ public class FocusingMinigame : MonoBehaviour, IMinigame
     [SerializeField] private float maxFocus = 100f;
     private Camera playCam;
     [SerializeField] private float hitFuzz = 1f;
+
+    public List<GameObject> solutionObjects;
+    // public List<Image> solutionIndicators
 
     void OnEnable()
     {
