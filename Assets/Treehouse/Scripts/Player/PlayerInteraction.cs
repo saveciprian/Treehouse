@@ -7,7 +7,6 @@ public class PlayerInteraction : MonoBehaviour
 
     private InputAction shoot;
     public PlayerInput PlayerControls;
-    private Ray ray;
     [SerializeField] private CinemachineCamera playerCamera;
     [SerializeField] private float interactionDistance = 10f;
     private IInteractable _interactableObject;
