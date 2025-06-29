@@ -66,18 +66,19 @@ public class FocusingMinigame : MonoBehaviour, IMinigame
         {
             // Debug.Log("Hit: " + _hit.collider.name);
 
-            if (focusDistance - hitFuzz < _hit.distance && _hit.distance < focusDistance + hitFuzz) Debug.Log("object hit: " + _hit.collider.name);
-
-            for (int i = 0; i < solutionObjects.Count; i++)
+            if (focusDistance - hitFuzz < _hit.distance && _hit.distance < focusDistance + hitFuzz)
             {
-                if (solutionObjects[i] == _hit.collider.gameObject)
+                for (int i = 0; i < solutionObjects.Count; i++)
                 {
-                    solutionIndicators[i].Toggle();
-                    solutionObjects[i].SetActive(false);
-                    foundObjects++;
+                    if (solutionObjects[i] == _hit.collider.gameObject)
+                    {
+                        solutionIndicators[i].Toggle();
+                        solutionObjects[i].SetActive(false);
+                        foundObjects++;
+                    }
                 }
             }
-
+            
             if (foundObjects == totalObjects) Disable();
         }
     }
@@ -180,5 +181,6 @@ public class FocusingMinigame : MonoBehaviour, IMinigame
         InputControls.Instance.ControlToFreeroam();
         calculateTransitionStepTime(transitionBackTime);
         minigameEnabled = false;
+        FocusingUI.SetActive(false);
     }
 }
