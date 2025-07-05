@@ -1,26 +1,31 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using Unity.Cinemachine;
 using UnityEngine.InputSystem;
+using PixelCrushers.DialogueSystem;
 
 public class Furball : Character
 {
-    [SerializeField] CinemachineCamera interactCam;
+    [SerializeField] private CinemachineCamera interactCam;
 
-    private PlayerInput PlayerControls;
-    private InputAction esc;
+    private PlayerInput playerControls;
+    private InputAction escAction;
+
+    private void Awake()
+    {
+        playerControls = new PlayerInput();
+    }
 
     private void OnEnable()
     {
-        esc = PlayerControls.Player.Escape;
-        esc.performed += OnEscPerformed;
-        esc.Enable();
+        escAction = playerControls.Player.Escape;
+        escAction.performed += OnEscPerformed;
+        escAction.Enable();
     }
 
     private void OnDisable()
     {
-        esc.performed -= OnEscPerformed;
-        esc.Disable();
+        escAction.performed -= OnEscPerformed;
+        escAction.Disable();
     }
 
     private void OnEscPerformed(InputAction.CallbackContext context)
@@ -28,31 +33,33 @@ public class Furball : Character
         StopInteraction();
     }
 
-    void Awake()
-    {
-        PlayerControls = new PlayerInput();
-    }
-
     public override void Interact()
     {
         base.Interact();
 
         StartInteraction();
+
+        // Start Dialogue using DialogueSystemTrigger
+        var trigger = GetComponent<DialogueSystemTrigger>();
+        if (trigger != null && !DialogueManager.IsConversationActive)
+        {
+            trigger.OnUse();
+        }
     }
 
     private void StartInteraction()
     {
-        if (!interactCam.IsLive)
+        if (interactCam != null && !interactCam.IsLive)
         {
-            interactCam.Priority = 11;
+            interactCam.Priority = 11; // Make it active
         }
     }
 
     private void StopInteraction()
     {
-        if (interactCam.IsLive)
+        if (interactCam != null && interactCam.IsLive)
         {
-            interactCam.Priority = 0;
+            interactCam.Priority = 0; // Lower priority to deactivate
         }
     }
 }
