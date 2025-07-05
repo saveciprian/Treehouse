@@ -818,7 +818,7 @@ PlayerSettings:
   webWasm2023: 0
   webEnableSubmoduleStrippingCompatibility: 0
   scriptingDefineSymbols:
-    Android: PWB_BIRP;PWB_URP;TMP_PRESENT
+    Android: PWB_BIRP;PWB_URP;TMP_PRESENT;USE_NEW_INPUT
     Standalone: USE_NEW_INPUT;PWB_URP;TMP_PRESENT
     WebGL: USE_NEW_INPUT;TMP_PRESENT
   additionalCompilerArguments: {}
