@@ -6,7 +6,6 @@ public class Character : MonoBehaviour, IInteractable
 {
     public Material outlineMat;
     private MeshRenderer mr;
-    [SerializeField] CinemachineCamera interactCam;
 
     [SerializeField] CinemachineCamera[] interactCameras;
     private int activeIndex = 0;
@@ -21,11 +20,9 @@ public class Character : MonoBehaviour, IInteractable
     {
         mr = gameObject.GetComponent<MeshRenderer>();
         outlineMat = mr.materials[1];
-
-        
     }
 
-    void OnEnable()
+    protected virtual void OnEnable()
     {
         InputControls.EscapeKey += StopInteraction;
         InputControls.ControlSchemeChanged += HandleControl;
@@ -49,23 +46,13 @@ public class Character : MonoBehaviour, IInteractable
 
     private void StartInteraction()
     {
-        // if (!interactCam.IsLive)
-        // {
-        //     interactCam.Priority = 11;
-        // }
-
         setCameraAsActive(0);
         InputControls.Instance.ControlToMinigame();
     }
 
     public virtual void StopInteraction()
     {
-
-        if (interactCam.IsLive)
-        {
-            interactCam.Priority = 0;
-        }
-
+        resetToPlayerCam();
         InputControls.Instance.ControlToFreeroam();
     }
 
@@ -97,8 +84,6 @@ public class Character : MonoBehaviour, IInteractable
         {
             camera.Priority = 0;
         }
-
-        // InputControls.Instance.ControlToFreeroam();
     }
 
     void IInteractable.Outline()

@@ -79,12 +79,14 @@ public class InputControls : MonoBehaviour
 
     public void ControlToFreeroam()
     {
+        Debug.LogWarning("Control mode changed to Freeroam");
         mode = controlMode.Freeroam;
         ControlSchemeChanged?.Invoke();
     }
 
     public void ControlToMinigame()
     {
+        Debug.LogWarning("Control mode changed to Minigame");
         mode = controlMode.Minigame;
         ControlSchemeChanged?.Invoke();
     }

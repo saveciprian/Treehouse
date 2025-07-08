@@ -1252,7 +1252,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMat: {fileID: 2100000, guid: e7e34d7ac710241d6b708ca4f10b4111, type: 2}
-  interactCam: {fileID: 52339235}
   interactCameras:
   - {fileID: 52339235}
   - {fileID: 931367927}

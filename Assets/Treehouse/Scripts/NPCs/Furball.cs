@@ -7,32 +7,15 @@ public class Furball : Character
 {
     private IMinigame minigame;
     private DialogueSystemTrigger dialogueSystemTrigger;
-    [SerializeField] CinemachineCamera interactCam;
+    // [SerializeField] CinemachineCamera interactCam;
 
     private PlayerInput PlayerControls;
     private InputAction esc;
 
-    private void OnEnable()
-    {
-        esc = PlayerControls.Player.Escape;
-        esc.performed += OnEscPerformed;
-        esc.Enable();
-    }
-
-    private void OnDisable()
-    {
-        esc.performed -= OnEscPerformed;
-        esc.Disable();
-    }
 
     void Start()
     {
         minigame = gameObject.GetComponent<IMinigame>();
-    }
-
-    private void OnEscPerformed(InputAction.CallbackContext context)
-    {
-        StopInteraction();
     }
 
     void Awake()
@@ -40,11 +23,17 @@ public class Furball : Character
         PlayerControls = new PlayerInput();
     }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        //I made it a protected virtual in the character class just in case I'd need to also subscribe to some events here
+    }
+
     public override void Interact()
     {
         base.Interact();
 
-        StartInteraction();
+        // StartInteraction();
 
         // Start Dialogue using DialogueSystemTrigger
         var trigger = GetComponent<DialogueSystemTrigger>();
@@ -54,27 +43,8 @@ public class Furball : Character
         }
     }
 
-    private void StartInteraction()
-    {
-        if (interactCam != null && !interactCam.IsLive)
-        {
-            interactCam.Priority = 11; // Make it active
-        }
-    }
-
-    private void StartMinigame()
-    {
-        if (!interactCam.IsLive)
-        {
-            interactCam.Priority = 11;
-        }
-    }
-
     public override void StopInteraction()
     {
-        if (interactCam.IsLive)
-        {
-            interactCam.Priority = 0;
-        }
+        
     }
 }
