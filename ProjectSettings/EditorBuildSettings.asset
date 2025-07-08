@@ -11,6 +11,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Treehouse/Scenes/Tudor's Sandbox.unity
     guid: 4d067dd8bead4436cb1b9ad84a8b5bfa
+  - enabled: 1
+    path: Assets/Treehouse/Scenes/Main Menu.unity
+    guid: 2a66f6357a25b684aaf23d59f017e8b6
+  - enabled: 1
+    path: Assets/Treehouse/Scenes/Maureka's Sandbox.unity
+    guid: 79ae3d43435a587459fee7e8eb141b99
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
