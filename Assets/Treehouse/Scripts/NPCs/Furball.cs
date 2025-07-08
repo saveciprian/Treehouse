@@ -1,36 +1,43 @@
+using PixelCrushers.DialogueSystem;
 using UnityEngine;
 using Unity.Cinemachine;
 using UnityEngine.InputSystem;
-using PixelCrushers.DialogueSystem;
 
 public class Furball : Character
 {
-    [SerializeField] private CinemachineCamera interactCam;
+    private IMinigame minigame;
+    private DialogueSystemTrigger dialogueSystemTrigger;
+    [SerializeField] CinemachineCamera interactCam;
 
-    private PlayerInput playerControls;
-    private InputAction escAction;
-
-    private void Awake()
-    {
-        playerControls = new PlayerInput();
-    }
+    private PlayerInput PlayerControls;
+    private InputAction esc;
 
     private void OnEnable()
     {
-        escAction = playerControls.Player.Escape;
-        escAction.performed += OnEscPerformed;
-        escAction.Enable();
+        esc = PlayerControls.Player.Escape;
+        esc.performed += OnEscPerformed;
+        esc.Enable();
     }
 
     private void OnDisable()
     {
-        escAction.performed -= OnEscPerformed;
-        escAction.Disable();
+        esc.performed -= OnEscPerformed;
+        esc.Disable();
+    }
+
+    void Start()
+    {
+        minigame = gameObject.GetComponent<IMinigame>();
     }
 
     private void OnEscPerformed(InputAction.CallbackContext context)
     {
         StopInteraction();
+    }
+
+    void Awake()
+    {
+        PlayerControls = new PlayerInput();
     }
 
     public override void Interact()
@@ -55,11 +62,19 @@ public class Furball : Character
         }
     }
 
-    private void StopInteraction()
+    private void StartMinigame()
     {
-        if (interactCam != null && interactCam.IsLive)
+        if (!interactCam.IsLive)
         {
-            interactCam.Priority = 0; // Lower priority to deactivate
+            interactCam.Priority = 11;
+        }
+    }
+
+    public override void StopInteraction()
+    {
+        if (interactCam.IsLive)
+        {
+            interactCam.Priority = 0;
         }
     }
 }

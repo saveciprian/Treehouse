@@ -16,79 +16,71 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private CinemachineCamera playerCamera;
     private Rigidbody rb;
 
-    //INPUT
-    public PlayerInput PlayerControls;
-    private InputAction move;
-    private InputAction look;
-
-    private Vector2 moveDirection;
-    private Vector2 lookDirection;
-
     private float verticalRotation = 0f;
     float minVerticalLookAngle = -70f;
     float maxVerticalLookAngle = 70f;
 
 
-    private void Awake()
-    {
-        PlayerControls = new PlayerInput();
-    }
-
-    private void OnEnable()
-    {
-        move = PlayerControls.Player.Move;
-        look = PlayerControls.Player.Look;
-
-        move.Enable();
-        look.Enable();
-
-
-    }
-
-    private void OnDisable()
-    {
-        move.Disable();
-        look.Enable();
-
-
-    }
+    private InputControls input;
+    private Vector2 moveDir;
+    private Vector2 lookDir;
 
     private void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
         // playerCamera = gameObject.;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+
+        input = InputControls.Instance;
 
         if (testingMobile)
         {
             //enable UI
             mobileUI.SetActive(true);
         }
+
+        HideCursor();
+        InputControls.ControlSchemeChanged += UpdateControl;
     }
 
+    private void UpdateControl()
+    {
+        if (input.mode == InputControls.controlMode.Freeroam) HideCursor();
+        else ShowCursor();
+    }
+
+    private void HideCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    private void ShowCursor()
+    {
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+    }
 
     private void Update()
     {
         if (testingMobile)
         {
-            moveDirection = new Vector2(movementJoystick.Horizontal, movementJoystick.Vertical);
-            lookDirection = new Vector2(lookJoystick.Horizontal, lookJoystick.Vertical);
+            moveDir = new Vector2(movementJoystick.Horizontal, movementJoystick.Vertical);
+            lookDir = new Vector2(lookJoystick.Horizontal, lookJoystick.Vertical);
 
         }
         else
         {
-            moveDirection = move.ReadValue<Vector2>();
-            lookDirection = look.ReadValue<Vector2>();
+            moveDir = input.moveDirection;
+            lookDir = input.lookDirection;
 
         }
-        moveDirection.Normalize();
+        moveDir.Normalize();
 
         if (playerCamera.IsLive)
         {
-            transform.Rotate(Vector3.up * lookDirection.x * Time.deltaTime * lookSpeed);
+            transform.Rotate(Vector3.up * lookDir.x * Time.deltaTime * lookSpeed);
 
-            verticalRotation -= lookDirection.y * Time.deltaTime * lookSpeed;
+            verticalRotation -= lookDir.y * Time.deltaTime * lookSpeed;
             verticalRotation = Mathf.Clamp(verticalRotation, minVerticalLookAngle, maxVerticalLookAngle);
 
             playerCamera.transform.localEulerAngles = new Vector3(verticalRotation, 0f, 0f);
@@ -99,8 +91,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (playerCamera.IsLive)
         { 
-            rb.MovePosition(rb.position + transform.forward * movementSpeed * Time.deltaTime * moveDirection.y);
-            rb.MovePosition(rb.position + transform.right * movementSpeed * Time.deltaTime * moveDirection.x);
+            rb.MovePosition(rb.position + transform.forward * movementSpeed * Time.deltaTime * moveDir.y);
+            rb.MovePosition(rb.position + transform.right * movementSpeed * Time.deltaTime * moveDir.x);
         }
     }
 
