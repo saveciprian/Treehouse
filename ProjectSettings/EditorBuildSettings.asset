@@ -5,12 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Treehouse/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Treehouse/Scenes/Tudor's Sandbox.unity
-    guid: 4d067dd8bead4436cb1b9ad84a8b5bfa
+    path: Assets/Treehouse/Scenes/Laura's Sandbox 1.unity
+    guid: 36bf0a668acec4e0b90eb67fd00fb28b
+  - enabled: 1
+    path: Assets/Treehouse/Scenes/Mohammad.unity
+    guid: bff5e4a0054774d41b829424cc098cc2
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

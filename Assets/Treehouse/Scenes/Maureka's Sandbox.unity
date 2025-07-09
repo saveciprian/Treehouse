@@ -1405,7 +1405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ef13552636ca442188e8fb950c48ddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testingMobile: 1
+  testingMobile: 0
   movementSpeed: 7
   lookSpeed: 70
   movementJoystick: {fileID: 925077879}
@@ -3223,7 +3223,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -3.8461537, y: 0}
+  m_AnchoredPosition: {x: -3.846161, y: 0}
   m_SizeDelta: {x: 910, y: 980}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1266120267
@@ -3553,7 +3553,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMat: {fileID: 2100000, guid: e7e34d7ac710241d6b708ca4f10b4111, type: 2}
-  interactCam: {fileID: 2081838201}
+  interactCameras: []
 --- !u!136 &1297757350
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4713,7 +4713,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -3.8461537, y: 0}
+  m_AnchoredPosition: {x: -3.846161, y: 0}
   m_SizeDelta: {x: 910, y: 980}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2003285038

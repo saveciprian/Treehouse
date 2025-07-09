@@ -31,6 +31,7 @@ public class FocusingMinigame : MonoBehaviour, IMinigame
     private int foundObjects = 0;
     private int totalObjects;
     public List<ToggleButton> solutionIndicators;
+    public Transform nextLevel;
 
     void OnEnable()
     {
@@ -178,6 +179,7 @@ public class FocusingMinigame : MonoBehaviour, IMinigame
     public void Disable()
     {
         Debug.Log("disable woo");
+        nextLevel.gameObject.SetActive(true);
         InputControls.Instance.ControlToFreeroam();
         calculateTransitionStepTime(transitionBackTime);
         minigameEnabled = false;
