@@ -3535,9 +3535,9 @@
                 "z": 1.0
             },
             "_origin": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
+                "x": -24.479270935058595,
+                "y": -0.32328495383262637,
+                "z": 279.4560852050781
             },
             "_rotation": {
                 "x": 0.0,
@@ -3545,8 +3545,8 @@
                 "z": 0.0,
                 "w": 1.0
             },
-            "_showPositionHandle": true,
-            "_showRotationHandle": false,
+            "_showPositionHandle": false,
+            "_showRotationHandle": true,
             "_showScaleHandle": false,
             "_radialGridEnabled": false,
             "_radialStep": 1.0,
