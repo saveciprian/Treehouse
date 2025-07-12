@@ -122,12 +122,14 @@ public class InputControls : MonoBehaviour
 
 
                 if (touch.press.isPressed) anyTouchActive = true;
+                else if (touch.press.wasReleasedThisFrame) pointerUp?.Invoke();
+
                 if (anyTouchActive)
                 {
                     pointerDown?.Invoke();
                 }
 
-                if (touch.press.wasReleasedThisFrame) pointerUp?.Invoke();
+                
 
                 touchPos = Touchscreen.current.touches[0].position.ReadValue();
             }
