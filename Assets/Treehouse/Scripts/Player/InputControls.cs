@@ -10,7 +10,7 @@ public class InputControls : MonoBehaviour
     private InputAction move;
     private InputAction look;
     private InputAction esc;
-    [SerializeField] private bool testingMobile = false;
+    [SerializeField] public bool testingMobile = false;
 
     Vector2 mousePos;
     Vector2 touchPos;
@@ -75,6 +75,11 @@ public class InputControls : MonoBehaviour
     private void OnEscPerformed(InputAction.CallbackContext context)
     {
         EscapeKey?.Invoke();
+    }
+
+    public void Interact()
+    {
+        pointerDown?.Invoke();
     }
 
     public void ControlToFreeroam()

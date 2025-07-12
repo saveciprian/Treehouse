@@ -3,6 +3,7 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     public GameObject TargetReticle;
+    public GameObject MobileControlScheme;
     void OnEnable()
     {
         InputControls.ControlSchemeChanged += UpdateUI;
@@ -15,8 +16,18 @@ public class UIManager : MonoBehaviour
 
     private void UpdateUI()
     {
-        if ((InputControls.Instance.mode == InputControls.controlMode.Freeroam)) TargetReticle.SetActive(true);
-        else TargetReticle.SetActive(false);
+        if ((InputControls.Instance.mode == InputControls.controlMode.Freeroam))
+        {
+            if (InputControls.Instance.testingMobile) MobileControlScheme.SetActive(true);
+            TargetReticle.SetActive(true);
+        }
+        else
+        {
+            if (InputControls.Instance.testingMobile) MobileControlScheme.SetActive(false);
+            TargetReticle.SetActive(false);
+        }
+        
+            
     }
     
 }

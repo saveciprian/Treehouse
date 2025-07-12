@@ -5,31 +5,14 @@ using Unity.Cinemachine;
 public class PlayerInteraction : MonoBehaviour
 {
 
-    private InputAction shoot;
-    public PlayerInput PlayerControls;
     [SerializeField] private CinemachineCamera playerCamera;
     [SerializeField] private float interactionDistance = 10f;
     private IInteractable _interactableObject;
-
-
-    private void OnEnable()
-    {
-        shoot = PlayerControls.Player.Fire;
-
-        //clicking and tapping on screen
-        shoot.performed += OnShootPerformed;
-        shoot.Enable();
-    }
-
-    void OnDisable()
-    {
-        shoot.performed -= OnShootPerformed;
-        shoot.Disable();
-    }
+    [SerializeField] private GameObject interactButton;
 
     void Awake()
     {
-        PlayerControls = new PlayerInput();
+        
     }
 
     void Start()
@@ -47,20 +30,23 @@ public class PlayerInteraction : MonoBehaviour
     {
         RaycastHit _hit;
 
+        interactButton.SetActive((_interactableObject != null) ? true : false);
 
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out _hit, interactionDistance) && playerCamera.IsLive)
         {
             _interactableObject = _hit.collider.GetComponent<IInteractable>();
+            
         }
         else
         {
             _interactableObject = null;
+            
         }
 
 
     }
 
-    private void OnShootPerformed(InputAction.CallbackContext context)
+    public void Interact()
     {
         if (_interactableObject != null) _interactableObject.Interact();
 
