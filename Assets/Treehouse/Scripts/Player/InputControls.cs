@@ -107,13 +107,21 @@ public class InputControls : MonoBehaviour
 
         if (testingMobile)
         {
-            if (Touchscreen.current != null && Touchscreen.current.touches.Count > 0)
+            if (Touchscreen.current != null)
             {
-                pointerDown?.Invoke();
+                // Debug.Log("Touchscreen is being touched!");
+                // pointerDown?.Invoke();
 
                 var touch = Touchscreen.current.touches[0];
+                bool anyTouchActive = false;
 
-                if (touch.press.wasPressedThisFrame) pointerDown?.Invoke();
+
+                if (touch.press.isPressed) anyTouchActive = true;
+                if (anyTouchActive)
+                {
+                    pointerDown?.Invoke();
+                }
+
                 if (touch.press.wasReleasedThisFrame) pointerUp?.Invoke();
 
                 touchPos = Touchscreen.current.touches[0].position.ReadValue();
@@ -131,6 +139,7 @@ public class InputControls : MonoBehaviour
 
     public Vector2 getPointerPos()
     {
+        if(testingMobile) Debug.Log("touchPos:" + touchPos);
         return testingMobile ? touchPos : mousePos;
     }
 }

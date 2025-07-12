@@ -65,6 +65,7 @@ public class FocusWheel : MonoBehaviour
 
     public void PointerDown()
     {
+        Debug.Log("pointer down");
         currentPos = InputControls.Instance.getPointerPos();
         if((currentPos - (Vector2)transform.position).magnitude < rect.rect.width/2) rotatingDial = true; 
     }
