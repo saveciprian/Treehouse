@@ -1,0 +1,17 @@
+/Users/saveciprian/Documents/2.Personal/THK/CollabProject_ImpactGames/Treehouse/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/GAToUnityCallbacks.h
+/Users/saveciprian/Documents/2.Personal/THK/CollabProject_ImpactGames/Treehouse/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/MacroEnd.h
+/Users/saveciprian/Documents/2.Personal/THK/CollabProject_ImpactGames/Treehouse/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/MacroHeaderBegin.h
+/Users/saveciprian/Documents/2.Personal/THK/CollabProject_ImpactGames/Treehouse/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/MacroSourceBegin.h
+/Users/saveciprian/Documents/2.Personal/THK/CollabProject_ImpactGames/Treehouse/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UGAApplication.h
+/Users/saveciprian/Documents/2.Personal/THK/CollabProject_ImpactGames/Treehouse/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UGAConfiguration.h
+/Users/saveciprian/Documents/2.Personal/THK/CollabProject_ImpactGames/Treehouse/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UGADebug.h
+/Users/saveciprian/Documents/2.Personal/THK/CollabProject_ImpactGames/Treehouse/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UGAEvents.h
+/Users/saveciprian/Documents/2.Personal/THK/CollabProject_ImpactGames/Treehouse/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UGAInput.h
+/Users/saveciprian/Documents/2.Personal/THK/CollabProject_ImpactGames/Treehouse/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UGASoftKeyboard.h
+/Users/saveciprian/Documents/2.Personal/THK/CollabProject_ImpactGames/Treehouse/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UGASoftKeyboardCallbacks.h
+/Users/saveciprian/Documents/2.Personal/THK/CollabProject_ImpactGames/Treehouse/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UGATypes.h
+/Users/saveciprian/Documents/2.Personal/THK/CollabProject_ImpactGames/Treehouse/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UGAVersion.h
+/Users/saveciprian/Documents/2.Personal/THK/CollabProject_ImpactGames/Treehouse/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UnityToGACallbacks.h
+/Users/saveciprian/Documents/2.Personal/THK/CollabProject_ImpactGames/Treehouse/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UnityToGAConfigurationCallbacks.h
+/Users/saveciprian/Documents/2.Personal/THK/CollabProject_ImpactGames/Treehouse/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UnityToGAKeyEventCallbacks.h
+/Users/saveciprian/Documents/2.Personal/THK/CollabProject_ImpactGames/Treehouse/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UnityToGAMotionEventCallbacks.h

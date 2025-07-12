@@ -2,10 +2,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal; // Make sure to include this for DepthOfField
 using System.Collections;
-using UnityEngine.EventSystems;
 using System.Collections.Generic;
-using Microsoft.Unity.VisualStudio.Editor;
-using Unity.VisualScripting;
 
 public class FocusingMinigame : MonoBehaviour, IMinigame
 {

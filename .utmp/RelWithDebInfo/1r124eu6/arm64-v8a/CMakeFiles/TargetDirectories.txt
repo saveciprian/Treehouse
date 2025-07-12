@@ -1,0 +1,5 @@
+/Users/saveciprian/Documents/2.Personal/THK/CollabProject_ImpactGames/Treehouse/.utmp/RelWithDebInfo/1r124eu6/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/saveciprian/Documents/2.Personal/THK/CollabProject_ImpactGames/Treehouse/.utmp/RelWithDebInfo/1r124eu6/arm64-v8a/CMakeFiles/rebuild_cache.dir
+/Users/saveciprian/Documents/2.Personal/THK/CollabProject_ImpactGames/Treehouse/.utmp/RelWithDebInfo/1r124eu6/arm64-v8a/GameActivity/CMakeFiles/game.dir
+/Users/saveciprian/Documents/2.Personal/THK/CollabProject_ImpactGames/Treehouse/.utmp/RelWithDebInfo/1r124eu6/arm64-v8a/GameActivity/CMakeFiles/edit_cache.dir
+/Users/saveciprian/Documents/2.Personal/THK/CollabProject_ImpactGames/Treehouse/.utmp/RelWithDebInfo/1r124eu6/arm64-v8a/GameActivity/CMakeFiles/rebuild_cache.dir

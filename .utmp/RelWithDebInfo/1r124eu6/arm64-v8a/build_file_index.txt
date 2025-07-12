@@ -1,0 +1,2 @@
+/Users/saveciprian/Documents/2.Personal/THK/CollabProject_ImpactGames/Treehouse/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/CMakeLists.txt
+/Users/saveciprian/Documents/2.Personal/THK/CollabProject_ImpactGames/Treehouse/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/CMakeLists.txt
