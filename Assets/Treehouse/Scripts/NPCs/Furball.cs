@@ -32,13 +32,14 @@ public class Furball : Character
     public override void Interact()
     {
         base.Interact();
-
+        Debug.Log("Interacting");
         // StartInteraction();
 
         // Start Dialogue using DialogueSystemTrigger
         var trigger = GetComponent<DialogueSystemTrigger>();
         if (trigger != null && !DialogueManager.IsConversationActive)
         {
+            Debug.Log("Dialogue triggered");
             trigger.OnUse();
         }
     }
