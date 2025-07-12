@@ -23,6 +23,8 @@ public class BreathingDrag : MonoBehaviour
     [Header("Transition")]
     [SerializeField] private TutorialTransition tutorialTransition;
 
+	//[SerializeField] private GameObject mobileUI;
+
     private RectTransform rectTransform;
     private int currentTargetIndex = 0;
     private float timer = 0f;
