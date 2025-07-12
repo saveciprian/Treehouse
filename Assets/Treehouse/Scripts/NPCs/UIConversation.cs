@@ -13,15 +13,25 @@ public class UIConversation : MonoBehaviour
 
     private void OnConversationLine(Subtitle subtitle)
     {
-        if (subtitle.speakerInfo.IsPlayer && breathingExercise != null)
+        if (subtitle.speakerInfo.IsPlayer)
         {
-            breathingExercise.SetActive(true);
+            if (breathingExercise != null) breathingExercise.SetActive(true);
+            if (mobileUI != null) mobileUI.SetActive(false);
         }
     }
 
     private void OnConversationEnd(Transform actor)
     {
-        if (mobileUI != null) mobileUI.SetActive(true);
         if (breathingExercise != null) breathingExercise.SetActive(true);
+
+       
+        if (mobileUI != null && (breathingExercise == null || !breathingExercise.activeSelf))
+        {
+            mobileUI.SetActive(true);
+        }
+        else if (mobileUI != null)
+        {
+            mobileUI.SetActive(false); 
+        }
     }
 }

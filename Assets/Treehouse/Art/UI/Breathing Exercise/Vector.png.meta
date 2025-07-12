@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 223f0166e8d3db94d99035a1a2fdae75
+guid: f6ee88b0f6607d545b2e654ad2b7e807
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ellipse 532_0
+      name: Vector_2
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 144
-        height: 144
+        width: 152
+        height: 164
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -138,8 +138,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4e38ac48e383b5c45b396a9b17d2fda0
-      internalID: 1339038426
+      spriteID: 3415e4de0004e80439ec846fef4aefe4
+      internalID: -996496266
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5216e0fb99f51cc4794843360c778f94
+    spriteID: de4f6690554c7b8489bbc3cb03b969a9
     internalID: 0
     vertices: []
     indices: 
@@ -160,7 +160,9 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Ellipse 532_0: 1339038426
+      Vector_0: -656597642
+      Vector_1: -667648944
+      Vector_2: -996496266
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
