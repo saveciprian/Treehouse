@@ -6,7 +6,7 @@ using Unity.Cinemachine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private bool testingMobile = false;
-    [SerializeField] private float movementSpeed = 30f;
+    [SerializeField] private float movementSpeed = 1f;
     [SerializeField] private float lookSpeed = 30f;
 
     [SerializeField] private Joystick movementJoystick;
@@ -74,7 +74,8 @@ public class PlayerMovement : MonoBehaviour
             lookDir = input.lookDirection;
 
         }
-        moveDir.Normalize();
+        if (moveDir.magnitude > 1) moveDir.Normalize();
+        Debug.Log(moveDir);
 
         if (playerCamera.IsLive)
         {
