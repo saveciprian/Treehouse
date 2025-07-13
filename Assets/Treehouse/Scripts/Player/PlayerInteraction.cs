@@ -30,7 +30,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         RaycastHit _hit;
 
-        interactButton.SetActive((_interactableObject != null) ? true : false);
+        interactButton?.SetActive((_interactableObject != null) ? true : false);
 
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out _hit, interactionDistance) && playerCamera.IsLive)
         {

@@ -19,12 +19,12 @@ public class UIManager : MonoBehaviour
         if ((InputControls.Instance.mode == InputControls.controlMode.Freeroam))
         {
             if (InputControls.Instance.testingMobile) MobileControlScheme.SetActive(true);
-            TargetReticle.SetActive(true);
+            TargetReticle?.SetActive(true);
         }
         else
         {
             if (InputControls.Instance.testingMobile) MobileControlScheme.SetActive(false);
-            TargetReticle.SetActive(false);
+            TargetReticle?.SetActive(false);
         }
         
             
