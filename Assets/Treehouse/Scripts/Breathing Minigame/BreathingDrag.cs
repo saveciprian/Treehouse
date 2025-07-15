@@ -1,9 +1,16 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.Rendering;
 
 public class BreathingDrag : MonoBehaviour
 {
+    
+    public Volume volume;
+    DepthOfField dof;
+    
     [Header("Rectangle Points")]
     [SerializeField] private RectTransform[] points;
 
