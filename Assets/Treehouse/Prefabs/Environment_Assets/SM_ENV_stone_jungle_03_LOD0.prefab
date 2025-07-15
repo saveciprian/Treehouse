@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4572421963648436275}
   - component: {fileID: 7659483279527090837}
   - component: {fileID: 2063214950484030631}
+  - component: {fileID: 2834793915629825796}
   m_Layer: 0
   m_Name: SM_ENV_stone_jungle_03_LOD0
   m_TagString: Untagged
@@ -86,3 +87,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2834793915629825796
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9131548409528470441}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.7707715, y: 3.0902302, z: 1.4601343}
+  m_Center: {x: 0.000060409307, y: 1.5438851, z: 0.0005725026}
