@@ -30,9 +30,9 @@ public class CirclePath : MonoBehaviour
 	[Header("UI Switching")]
 	[SerializeField] private GameObject circleBreathingUI;
 	[SerializeField] private GameObject mobileUI;
-    
-    [Header("Scene Management")]
-    [SerializeField] private string sceneToLoad;
+
+	[Header("Scene Management")]
+	[SerializeField] private string sceneToLoad;
 	
 
     private RectTransform rectTransform;
@@ -144,7 +144,7 @@ public class CirclePath : MonoBehaviour
 
     	if (completedLoops >= loopsToWin)
     	{
-       	 	if (tutorialTransition != null)
+        	if (tutorialTransition != null)
             tutorialTransition.StartTransition();
 
         	if (circleBreathingUI != null)
@@ -152,11 +152,12 @@ public class CirclePath : MonoBehaviour
 
         	if (mobileUI != null)
             mobileUI.SetActive(true);
-            
-            if (!string.IsNullOrEmpty(sceneToLoad))
-                SceneManager.LoadScene(sceneToLoad);
+
+        	if (!string.IsNullOrEmpty(sceneToLoad))
+            SceneManager.LoadScene(sceneToLoad);
     	}
 	}
+
 
 
     private void UpdateTimerText(float remainingTime)

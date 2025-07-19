@@ -1,12 +1,8 @@
-using TMPro;
-using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
-
+using UnityEngine;
 
 public class TutorialTransition : MonoBehaviour
 {
-   
     [Header("Fade Overlay")]
     [SerializeField] private CanvasGroup fadeOverlay;
 

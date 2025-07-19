@@ -961,7 +961,7 @@ MonoBehaviour:
   myEvent:
     m_PersistentCalls:
       m_Calls: []
-  sceneToLoad: Maureka's Sandbox
+  sceneToLoad: LVL-1
 --- !u!4 &1171404636
 Transform:
   m_ObjectHideFlags: 0

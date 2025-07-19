@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 187625917942912695}
   - component: {fileID: 5314861890569993509}
   - component: {fileID: 4559314609463330890}
+  - component: {fileID: 3241618447369119616}
   m_Layer: 0
   m_Name: SM_ENV_cliff_jungle_02_LOD0
   m_TagString: Untagged
@@ -86,3 +87,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &3241618447369119616
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1368194699922245536}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.9838953, y: 4.225466, z: 2.3728685}
+  m_Center: {x: -0.00067204237, y: 2.110671, z: -0.00038206577}
